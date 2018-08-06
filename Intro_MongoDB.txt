@@ -1,0 +1,35 @@
+Intro to MongoDB
+
+1) use my_first_db
+2) db.createCollection('students')
+3) .....format: {name: STRING, home_state: STRING, lucky_number: NUMBER, birthday: {month:NUMBER, day:NUMBER, year:NUMBER}}
+4)db.students.insert({name:'Kenny', home_state:'Virginia', lucky_number:88, birthday:{month:8, day:
+20, year:1994}})
+db.students.insert({name:'LeBron', home_state: 'Ohio', lucky_number:23, birthday:{month:12, day:3
+0, year:1984}})
+db.students.insert({name:'Michael', home_state: 'California', lucky_number:5, birthday:{month:5,
+day:10, year:1975}})
+db.students.insert({name:'Johnny', home_state: 'Washington', lucky_number:10, birthday:{month:4,
+day:20, year:1999}})
+db.students.insert({name:'Freddie', home_state: 'Colorado', lucky_number:44, birthday:{month:11,
+day:19, year:1949}})
+5)db.students.find().pretty()
+6)db.students.find( { $or: [ {home_state:"California"}, {home_state:"Washington"} ] } ).pretty()
+7) -- db.students.find({lucky_number: {$gt: 3} }).pretty()
+   -- db.students.find({lucky_number: {$lte: 10}}).pretty()
+   -- db.students.find( { $and: [ {lucky_number:{$gte: 1}}, {lucky_number:{$lte:9}} ] } ).pretty()
+8)db.students.updateMany({}, { $set: {interests: ["coding", "brunch", "MongoDB"]}})
+9)db.students.update({name:"Kenny"}, {$push: {interests:'poker'}})
+  db.students.update({name:"LeBron"}, {$push: {interests:'basketball'}})
+  db.students.update({name:"Michael"}, {$push: {interests:'gokart'}})
+10)db.students.update({name:"Freddie"}, {$push: {interests:'taxes'}})
+11)db.students.update({name:"Freddie"}, {$pull: {interests:"taxes"}})
+12)db.students.remove({home_state:"California"})
+13)db.students.remove({name:"Johnny"})
+14)db.students.remove({lucky_number: {$gt: 5}}, true)
+15)db.students.updateMany({}, { $set: {number_of_belts: 0}})
+16)db.students.updateMany({home_state:"Washington"}, {$inc: {number_of_belts:1}})
+17)db.students.updateMany({}, {$rename: {"number_of_belts":"belts_earned"}})
+18)db.students.updateMany({}, {$unset: {lucky_number:""}})
+19) -- db.students.update({}, {$currentDate: {date: {$type:"date"}}})
+    -- db.students.updateMany({}, {$set:{updated_on: new Date()}})

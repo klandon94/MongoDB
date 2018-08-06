@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Basic Mongoose App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <form action="/users", method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age">
+        <input type="submit" value="Create user">
+    </form>
+    <br><br>
+    <h3>All users in the database:</h3>
+    <ul>
+        <% for (let i in users) { %>
+            <li><%=users[i].name%>, Age:<%=users[i].age%></li>
+        <% } %>
+    </ul>
+</body>
+</html>

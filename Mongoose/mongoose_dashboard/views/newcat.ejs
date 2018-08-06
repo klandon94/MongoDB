@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>New cat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    .red{
+        color:red;
+    }
+    .green{
+        color:green;
+    }
+</style>
+<body>
+    <h1>Create a new cat</h1>
+    <br>
+    <% if (messages.creation){ %>
+        <% for (var x of messages.creation) { %>
+            <p class='red'><%=x%></p>
+        <% } %>
+    <% } %>
+    <% if (messages.success){ %>
+        <% for (var x of messages.success) { %>
+            <p class='green'><%=x%></p>
+        <% } %>
+    <% } %>
+    <form action="/cats" method="post">
+        <label for="kind">Kind:</label>
+        <input type="text" id="kind" name="kind">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="size">Size:</label>
+        <input type="number" id="size" name="size">
+        <input type="submit" value="Create cat">
+    </form>
+    <br><br>
+    <a href="/">See all cats</a>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Message Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <!-- Optional theme --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <style>
+    h1{
+        text-align:center;
+    }
+    .error{
+        color:darkred;
+        font-weight:bold;
+    }
+    .success{
+        color:darkgreen;
+        font-weight:bold;
+    }
+    #simple{
+        font-size:75px;
+    }
+    textarea{
+        width:100%;
+    }
+    #postmessage{
+        width:85%;
+        margin: 0px auto;
+    }
+    .shadow-textarea textarea.form-control::placeholder {
+        font-weight:500;
+    }
+    #allmessages{
+        width:85%;
+        margin: auto;
+        margin-top:50px;
+        margin-bottom:50px;
+    }
+    .message{
+        margin-bottom:20px;
+    }
+    .msg{
+        color:blue;
+        margin-left:20px;
+        font-size:20px;
+        font-style:bold;
+    }
+    .comment{
+        width:60%;
+        padding:10px;
+        margin: 20px 0 20px 50px;
+        border:1px solid black;
+        border-radius:5px;
+    }
+    .com{
+        color: darkgoldenrod;
+        margin-left:40px;
+        font-size:15px;
+    }
+    .newcomment{
+        margin: 0 0 60px 50px;
+        width:60%
+    }
+    .poster{
+        font-size:20px;
+    }
+    </style>
+</head>
+<body>
+    <nav class='navbar navbar-inverse'>
+        <div class='container-fluid'>
+            <div class='navbar-header'>
+                <a class='navbar-brand active' href='#'>The Dojo Message Board</a>
+            </div>
+        </div>
+    </nav>
+
+    <% if (messages.msgerror){ %>
+        <% for (var x of messages.msgerror) { %>
+            <p class='error'><%=x%></p>
+        <% } %>
+    <% } %>
+    <% if (messages.msgsuccess){ %>
+        <% for (var x of messages.msgsuccess) { %>
+            <p class='success'><%=x%></p>
+        <% } %>
+    <% } %>
+    
+    <div id='postmessage'>
+        <form action='/postmsg' method='post'>
+            <div class="form-group">
+                <label for="msgname">Name:</label>
+                <input type="text" id="msgname" name="name">
+            </div>
+            <div class='form-group shadow-textarea'>
+                <label for='textarea'>Post a message</label>
+                <textarea name='content' class='form-control z-depth-2' id='textarea' rows='5' placeholder='Write message here...'></textarea>
+            </div>
+            <button id='postmsg' class='btn btn-primary pull-right' type='submit' value='postmsg'>POST MESSAGE</button>
+        </form>
+    </div>
+    
+    <div id='allmessages'>
+        <% if (msgs.length >= 1) { %>
+        <h1>MESSAGES AND COMMENTS</h1><br>
+        <% for (let i of msgs) { %>
+        <div class='message'>
+            <p><b class='poster'><%= i.name %></b> -- <%= i.createdAt %></p>
+            <span class='msg'><b><%= i.content %></b></span>
+        </div>
+        <% if (i.comments.length >= 1) { %>
+            <% for (let x of i.comments) { %>
+            <div class='comment'>
+                <p><b class='poster'><%= x.name %></b> -- <%= x.createdAt %></p>
+                <span class='com'><b><%= x.content %></b></span>
+            </div>
+            <% } %>
+        <% } %>
+        <div class='newcomment'>
+            <% if (messages.comerror){ %>
+                <% for (var x of messages.comerror) { %>
+                    <p class='error'><%=x%></p>
+                <% } %>
+            <% } %>
+            <% if (messages.comsuccess){ %>
+                <% for (var x of messages.comsuccess) { %>
+                    <p class='success'><%=x%></p>
+                <% } %>
+            <% } %>
+            <form action='/postcom/<%=i.id%>' method='post'>
+                <div class="form-group">
+                    <label for="cmtname">Name:</label>
+                    <input type="text" id="cmtname" name="name">
+                </div>
+                <div class='form-group shadow-textarea'>
+                    <label for='textarea2'>Post a comment</label>
+                    <textarea name='content' class='form-control z-depth-2' id='textarea2' rows='3' placeholder='Write comment here...'></textarea>
+                </div>
+                <button id='postcom' class='btn btn-success pull-right' type='submit' value='postcom'>POST COMMENT</button>
+            </form>
+        </div>
+        <% } %>
+    <% } else { %>
+        <h3>NO MESSAGES!</h3>
+    <% } %>
+    </div>
+</body>
+</html>
