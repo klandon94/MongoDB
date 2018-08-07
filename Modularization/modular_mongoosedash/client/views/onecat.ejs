@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>One Cat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>Single Cat Info</h1>
+    <p>Kind: <%=cat.kind%></p>
+    <p>Name: <%=cat.name%></p>
+    <p>Size: <%=cat.size%></p>
+    <br>
+    <a href="/cats/edit/<%=cat.id%>">Edit cat</a>
+    <br>
+    <form action="/cats/delete/<%=cat.id%>" method="post">
+        <input type="submit" value="Delete cat">
+    </form>
+    <br><br>
+    <a href="/">See all cats</a>
+</body>
+</html>
