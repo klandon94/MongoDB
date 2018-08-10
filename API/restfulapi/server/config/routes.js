@@ -13,7 +13,7 @@ module.exports = function(app){
     app.post('/tasks', (req,res)=>{
         tasks.create(req,res);
     })
-    app.put('/tasks/:id', (req,res)=>{
+    app.patch('/tasks/:id', (req,res)=>{
         tasks.edit(req,res);
     })
     app.delete('/tasks/:id', (req,res)=>{

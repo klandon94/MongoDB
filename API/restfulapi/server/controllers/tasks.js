@@ -1,4 +1,5 @@
-Task = require("../models/task");
+var Task = require("../models/task");
+// Another way to import Task.....var Task = req("mongoose").model("Task")
 
 module.exports = {
     showAll: function(req,res){
@@ -32,12 +33,12 @@ module.exports = {
             if (err) return res.status(404).send(err);
             task.set(req.body);
             task.save((err, updatedTask)=>{
-                if (err) return res.status(404).json();
+                if (err) return res.status(404).json(err);
                 res.json(updatedTask);
             })
         })
         // passing in req.body smartly combines your existing document with this change, which allows for partial updates too
-        // {new:true} an option that asks mongoose to return the updatedd version of the document instead of the pre-updated one
+        // {new:true} an option that asks mongoose to return the updated version of the document instead of the pre-updated one
         // Task.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err,task)=>{
         //     if (err) return res.status(500).json("Something went wrong");
         //     return res.json(task);
